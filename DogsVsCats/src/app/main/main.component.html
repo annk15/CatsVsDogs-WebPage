@@ -1,0 +1,24 @@
+<div class="frame">
+  <div class="frame-row" style="padding-bottom: 35px; padding-top: 30px">
+    <router-outlet (activate)="onActivate($event)"></router-outlet>
+  </div>
+
+    <div style="padding-top: 5px; padding-bottom: 5px;">
+    <div class="line"></div>
+  </div>
+
+  <input type="file" accept="image/*" hidden capture="camera" (change)="onFileSelect($event)" #file>
+
+  <div class="frame-row" style="padding-top: 5px;">
+    <div *ngIf="buttonState == ButtonStates.Upload" class="button" (click)="file.click()">
+      Upload Image
+    </div>
+    <div *ngIf="buttonState == ButtonStates.Loading"  class="buttonLoading">
+      <img [width]="25" src="../../../assets/spinner.svg" width="100%" />
+    </div>
+    <div *ngIf="buttonState == ButtonStates.Return" class="button" routerLink="/">
+      Home
+    </div>
+  </div>
+</div>
+
