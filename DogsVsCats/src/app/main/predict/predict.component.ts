@@ -13,8 +13,9 @@ import {ButtonAttributes} from "../../shared/button-attributes";
 export class PredictComponent implements OnInit {
 
   private predictedLabel : string;
-  private static assetsPath : string = "../../../";
   private processSubscription : Subscription;
+
+  private static assetsPath : string = "../../../assets/";
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -41,16 +42,19 @@ export class PredictComponent implements OnInit {
     var path : string;
 
     if (this.predictedLabel == "cat") {
-      path = PredictComponent.assetsPath + "assets/cat.svg"
+      path = PredictComponent.assetsPath + "cat.svg"
 
     } else if (this.predictedLabel == "dog") {
-      path = PredictComponent.assetsPath + "assets/dog.svg"
+      path = PredictComponent.assetsPath + "dog.svg"
+
+    } else {
+      path = PredictComponent.assetsPath + "question.svg"
 
     }
 
     return path;
   }
 
-  static getButtonAttributes() : ButtonAttributes { return new ButtonAttributes({text:"Return", route:"/"});}
+  getButtonAttributes() : ButtonAttributes { return new ButtonAttributes({text:"Return", route:"/"});}
 
 }

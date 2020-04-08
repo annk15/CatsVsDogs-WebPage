@@ -12,6 +12,6 @@ export class UploadComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  static getButtonAttributes() : ButtonAttributes { return new ButtonAttributes({text:"Upload", route:"/predict"});}
+  getButtonAttributes() : ButtonAttributes { return new ButtonAttributes({text:"Upload", route:"/predict"});}
 
 }
