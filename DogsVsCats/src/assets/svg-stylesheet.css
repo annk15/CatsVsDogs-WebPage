@@ -1,0 +1,14 @@
+
+@-webkit-keyframes color-change-2x {
+  0% {
+    fill: #19dcea;
+  }
+  100% {
+    fill: #b22cff;
+  }
+}
+
+.rainbow {
+  -webkit-animation: color-change-2x 3.0s linear infinite alternate both;
+  animation: color-change-2x 3.0s linear infinite alternate both;
+}
