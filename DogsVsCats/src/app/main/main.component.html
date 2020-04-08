@@ -1,23 +1,20 @@
+<input type="file" accept="image/*" hidden capture="camera" onclick="this.value = null" (change)="onFileSelection($event)" #uploadPrompt>
+
 <div class="frame">
-  <div class="frame-row" style="padding-bottom: 35px; padding-top: 30px">
+  <div class="frame-row" style="padding-top: 20px">
     <router-outlet (activate)="onActivate($event)"></router-outlet>
   </div>
 
-    <div style="padding-top: 5px; padding-bottom: 5px;">
-    <div class="line"></div>
-  </div>
+  <div style="height: 100%; align-items: flex-end; display: flex;">
 
-  <input type="file" accept="image/*" hidden capture="camera" (change)="onFileSelect($event)" #file>
+    <div>
+      <div class="line"></div>
 
-  <div class="frame-row" style="padding-top: 5px;">
-    <div *ngIf="buttonState == ButtonStates.Upload" class="button" (click)="file.click()">
-      Upload Image
-    </div>
-    <div *ngIf="buttonState == ButtonStates.Loading"  class="buttonLoading">
-      <img [width]="25" src="../../../assets/spinner.svg" width="100%" />
-    </div>
-    <div *ngIf="buttonState == ButtonStates.Return" class="button" routerLink="/">
-      Home
+      <div class="frame-row" style="padding-top: 15px;">
+        <div class="button" (click)="buttonAttributes.text == 'Upload' ? uploadPrompt.click() : navigateToRoute()">
+          {{buttonAttributes.text}}
+        </div>
+      </div>
     </div>
   </div>
 </div>

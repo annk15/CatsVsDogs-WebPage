@@ -1,6 +1,8 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from "@angular/router";
-import {ButtonStates} from "../button.states";
+import {ProcessService} from "../../shared/process.service";
+import {Subscription} from "rxjs";
+import {ButtonAttributes} from "../../shared/button-attributes";
 
 @Component({
   selector: 'app-predict',
@@ -10,32 +12,28 @@ import {ButtonStates} from "../button.states";
 })
 export class PredictComponent implements OnInit {
 
-  private static assetsPath : string = "../../../";
   private predictedLabel : string;
+  private static assetsPath : string = "../../../";
+  private processSubscription : Subscription;
 
   constructor(private route: ActivatedRoute,
-              private router: Router
+              private router: Router,
+              private processService : ProcessService
   ) { }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-        // Defaults to 0 if no query param provided.
-        this.predictedLabel = params['label'];
-      })
+
+    this.processSubscription = this.processService.getPredictedLabel().subscribe((label) => {
+      this.predictedLabel = label;
+    });
 
   }
 
-  getLabel():string {
-    var formatedLabel : string;
+  ngOnDestroy() : void {
 
-    if (this.predictedLabel == "cat") {
-      formatedLabel = "Cat"
+    this.processSubscription.unsubscribe();
+    this.processService.reset();
 
-    } else if (this.predictedLabel == "dog") {
-      formatedLabel = "Dog"
-    }
-
-    return formatedLabel;
   }
 
   getImgPath(): string {
@@ -51,9 +49,8 @@ export class PredictComponent implements OnInit {
     }
 
     return path;
-
   }
 
-  getButtonState() : ButtonStates { return ButtonStates.Return; }
+  static getButtonAttributes() : ButtonAttributes { return new ButtonAttributes({text:"Return", route:"/"});}
 
 }

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {ButtonStates} from "./button.states";
-import {ProcessComponent} from "./process/process.component";
-import {ProcessService} from "./process/process.service";
+import {ProcessService} from "../shared/process.service";
 import {Router} from "@angular/router";
+import {Subscription} from "rxjs";
+import {ButtonAttributes} from "../shared/button-attributes";
 
 @Component({
   selector: 'app-main',
@@ -11,28 +11,43 @@ import {Router} from "@angular/router";
 })
 export class MainComponent implements OnInit {
 
-  ButtonStates = ButtonStates;
-  buttonState : ButtonStates = ButtonStates.Upload;
+  processSubscription : Subscription;
+  buttonAttributes : ButtonAttributes = new ButtonAttributes();
 
   constructor(private processService : ProcessService, private router: Router) { }
 
   ngOnInit(): void {}
 
-  onFileSelect(event) {
+  ngOnDestroy() {
+
+    this.processSubscription.unsubscribe();
+
+  }
+
+  onFileSelection(event) {
 
     var file : File = event.target.files[0];
 
     if(file) {
-      this.processService.setFile(file);
-      this.router.navigate(["/process"])
+
+       this.processSubscription = this.processService.getPredictedLabel().subscribe( (label) => {
+        if(label != ProcessService.initialValue) {
+          this.processSubscription.unsubscribe();
+          this.navigateToRoute();
+        }
+      });
+
+      this.processService.predictFileLabel(file);
     }
 
   }
 
+  navigateToRoute() { this.router.navigate([this.buttonAttributes.route]); }
+
   onActivate(ref) {
 
-    if(ref.getButtonState) {
-      this.buttonState = ref.getButtonState();
+    if(ref.getButtonAttributes) {
+      this.buttonAttributes = ref.getButtonAttributes();
     }
   }
 

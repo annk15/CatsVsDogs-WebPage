@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
 import { UploadComponent } from './main/upload/upload.component';
-import { ProcessComponent } from './main/process/process.component';
 import { PredictComponent } from './main/predict/predict.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -16,7 +15,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent,
     MainComponent,
     UploadComponent,
-    ProcessComponent,
     PredictComponent,
   ],
   imports: [

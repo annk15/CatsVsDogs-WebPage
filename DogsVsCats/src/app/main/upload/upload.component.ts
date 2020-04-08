@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ButtonStates} from "../button.states";
+import {ButtonAttributes} from "../../shared/button-attributes";
 
 @Component({
   selector: 'app-upload',
@@ -12,6 +12,6 @@ export class UploadComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  getButtonState() : ButtonStates { return ButtonStates.Upload; }
+  static getButtonAttributes() : ButtonAttributes { return new ButtonAttributes({text:"Upload", route:"/predict"});}
 
 }
