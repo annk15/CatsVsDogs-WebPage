@@ -22,7 +22,7 @@ export class ProcessService {
 
         var data = {file: encodedFile};
 
-        this.httpClient.post('http://192.168.1.143:5000/', data).subscribe((response) => {
+        this.httpClient.post('http://A2C59E6B35133B53400B074BFA08A2E23.asuscomm.com:5000/', data).subscribe((response) => {
 
           this.labelSubject.next(response['class']);
 
