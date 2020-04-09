@@ -15,8 +15,6 @@ export class PredictComponent implements OnInit {
   private predictedLabel : string;
   private processSubscription : Subscription;
 
-  private static assetsPath : string = "../../../assets/";
-
   constructor(private route: ActivatedRoute,
               private router: Router,
               private processService : ProcessService
@@ -42,13 +40,13 @@ export class PredictComponent implements OnInit {
     var path : string;
 
     if (this.predictedLabel == "cat") {
-      path = PredictComponent.assetsPath + "cat.svg"
+      path = "assets/cat.svg"
 
     } else if (this.predictedLabel == "dog") {
-      path = PredictComponent.assetsPath + "dog.svg"
+      path = "assets/dog.svg"
 
     } else {
-      path = PredictComponent.assetsPath + "question.svg"
+      path = "assets/question.svg"
 
     }
 
