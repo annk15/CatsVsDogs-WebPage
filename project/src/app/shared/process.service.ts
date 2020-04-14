@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable, ReplaySubject, Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {BackendResponse} from "./backend-response";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProcessService {
 
-  public static initialValue : string = "none";
-  private labelSubject : BehaviorSubject<string> = new BehaviorSubject<string>(ProcessService.initialValue);
+  private labelSubject : BehaviorSubject<BackendResponse> = new BehaviorSubject<BackendResponse>(null);
 
   constructor(private httpClient: HttpClient) {}
 
-  predictFileLabel(file) : void {
+  predict(file) : void {
 
       var myReader:FileReader = new FileReader();
 
@@ -24,7 +24,7 @@ export class ProcessService {
 
         this.httpClient.post('https://CatsVsDogs.asuscomm.com:5000/', data).subscribe((response) => {
 
-          this.labelSubject.next(response['class']);
+            this.labelSubject.next(new BackendResponse({label:response['class'], certainty:response['certainty']}));
 
         });
 
@@ -34,8 +34,8 @@ export class ProcessService {
 
     }
 
-  getPredictedLabel() : Observable<string> { return this.labelSubject.asObservable(); }
+  getPrediction() : Observable<BackendResponse> { return this.labelSubject.asObservable(); }
 
-  reset() :void { this.labelSubject.next(ProcessService.initialValue); }
+  reset() :void { this.labelSubject.next(null); }
 
 }

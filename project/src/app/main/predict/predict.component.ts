@@ -12,8 +12,9 @@ import {ButtonAttributes} from "../../shared/button-attributes";
 })
 export class PredictComponent implements OnInit {
 
-  private predictedLabel : string;
-  private processSubscription : Subscription;
+    private predictedLabel : string = "none";
+    predictedCertainty : number = 0.0;
+    private processSubscription : Subscription;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -22,8 +23,12 @@ export class PredictComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.processSubscription = this.processService.getPredictedLabel().subscribe((label) => {
-      this.predictedLabel = label;
+    this.processSubscription = this.processService.getPrediction().subscribe((prediction) => {
+
+        if (prediction != null) {
+            this.predictedLabel = prediction.label;
+            this.predictedCertainty = prediction.certainty;
+        }
     });
 
   }

@@ -30,14 +30,14 @@ export class MainComponent implements OnInit {
 
     if(file) {
 
-       this.processSubscription = this.processService.getPredictedLabel().subscribe( (label) => {
-        if(label != ProcessService.initialValue) {
+       this.processSubscription = this.processService.getPrediction().subscribe( (label) => {
+        if(label != null) {
           this.processSubscription.unsubscribe();
           this.navigateToRoute();
         }
       });
 
-      this.processService.predictFileLabel(file);
+      this.processService.predict(file);
     }
 
   }
