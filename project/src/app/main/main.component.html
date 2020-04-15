@@ -1,21 +1,20 @@
 <input type="file" accept="image/*" hidden capture="camera" onclick="this.value = null" (change)="onFileSelection($event)" #uploadPrompt>
 
 <div class="frame">
-  <div class="frame-row" style="padding-top: 20px">
-    <router-outlet (activate)="onActivate($event)"></router-outlet>
-  </div>
-
-  <div style="height: 100%; align-items: flex-end; display: flex;">
-
-    <div>
-      <div class="line"></div>
-
-      <div class="frame-row" style="padding-top: 15px;">
-        <div class="button" (click)="buttonAttributes.text == 'Upload' ? uploadPrompt.click() : navigateToRoute()">
-          {{buttonAttributes.text}}
-        </div>
-      </div>
+  <div class="content">
+    <div class="container" style="height: 100%;">
+      <router-outlet (activate)="onActivate($event)"></router-outlet>
     </div>
+
+        <div class="container">
+
+          <div class="line"></div>
+
+          <div class="button" (click)="buttonAttributes.fileDialog ? uploadPrompt.click() : navigateToRoute()">
+            <img *ngIf="buttonAttributes.icon != 'none'" src={{buttonAttributes.icon}} style="height: 20px;"/>
+            <div *ngIf="buttonAttributes.text != 'none'" style="height: 20px;padding-top: 3px">{{buttonAttributes.text}}</div>
+          </div>
+        </div>
   </div>
 </div>
 

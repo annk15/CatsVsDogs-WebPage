@@ -12,8 +12,9 @@ import {ButtonAttributes} from "../../shared/button-attributes";
 })
 export class PredictComponent implements OnInit {
 
-    private predictedLabel : string = "none";
-    predictedCertainty : number = 0.0;
+    predictedLabel : string = "none";
+    message : string = "";
+
     private processSubscription : Subscription;
 
   constructor(private route: ActivatedRoute,
@@ -24,13 +25,9 @@ export class PredictComponent implements OnInit {
   ngOnInit(): void {
 
     this.processSubscription = this.processService.getPrediction().subscribe((prediction) => {
-
-        if (prediction != null) {
-            this.predictedLabel = prediction.label;
-            this.predictedCertainty = prediction.certainty;
-        }
+        if (prediction != null) { this.setMessage(prediction.certainty, prediction.label) }
+        else { this.router.navigate(["/"]) }
     });
-
   }
 
   ngOnDestroy() : void {
@@ -45,10 +42,10 @@ export class PredictComponent implements OnInit {
     var path : string;
 
     if (this.predictedLabel == "cat") {
-      path = "assets/cat.svg"
+      path = "assets/cat2.svg"
 
     } else if (this.predictedLabel == "dog") {
-      path = "assets/dog.svg"
+      path = "assets/dog2.svg"
 
     } else {
       path = "assets/question.svg"
@@ -56,6 +53,27 @@ export class PredictComponent implements OnInit {
     }
 
     return path;
+  }
+
+  setMessage(certainty : number, label : string) {
+
+      this.predictedLabel = label;
+
+      if(certainty > 0.9) {
+          this.message = "I'm very certain, that's a " + label + "!";
+      } else if(certainty > 0.7) {
+          this.message = "That's a " + label;
+      } else if(certainty > 0.5) {
+          this.message = "That looks like a " + label;
+      } else if(certainty > 0.3) {
+          this.message = "Im unsure, but I think that's a " + label;
+      } else if(certainty > 0.1) {
+          this.message = "Is that a " + label + "!?";
+      } else if(certainty > 0.0) {
+          this.predictedLabel = "none"
+          this.message = "I'm sorry but I have no idea what that is...";
+      }
+
   }
 
   getButtonAttributes() : ButtonAttributes { return new ButtonAttributes({text:"Return", route:"/"});}

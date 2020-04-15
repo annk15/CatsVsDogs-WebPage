@@ -1,7 +1,14 @@
-<img src={{getImgPath()}} width="100%"/>
+<div style="height: 100%;">
+        <img class="logo" src={{getImgPath()}} style="height: 170px;"/>
+        <div class="textArea">
+            {{message}}
+    <!--I see a {{predictedLabel}} and  {{predictedCertainty * 100 | number : '1.2-2' }}% <br> certain that's a-->
+        </div>
+<!--
 <div class="textArea" *ngIf="predictedCertainty != 0">
     Certainty: {{predictedCertainty * 100 | number : '1.2-2' }}%
 </div>
 <div class="textArea" *ngIf="predictedCertainty == 0">
     Unable to classify
+</div>-->
 </div>

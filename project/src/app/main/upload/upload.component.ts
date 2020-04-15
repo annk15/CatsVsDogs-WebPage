@@ -12,6 +12,6 @@ export class UploadComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  getButtonAttributes() : ButtonAttributes { return new ButtonAttributes({text:"Upload", route:"/predict"});}
+  getButtonAttributes() : ButtonAttributes { return new ButtonAttributes({icon:"assets/camera.svg", route:"/predict", fileDialog: true});}
 
 }
