@@ -42,10 +42,10 @@ export class PredictComponent implements OnInit {
     var path : string;
 
     if (this.predictedLabel == "cat") {
-      path = "assets/cat2.svg"
+      path = "assets/cat.svg"
 
     } else if (this.predictedLabel == "dog") {
-      path = "assets/dog2.svg"
+      path = "assets/dog.svg"
 
     } else {
       path = "assets/question.svg"
