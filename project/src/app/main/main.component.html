@@ -10,7 +10,7 @@
 
           <div class="line"></div>
 
-          <div class="button" (click)="buttonAttributes.fileDialog ? uploadPrompt.click() : navigateToRoute()">
+          <div class="button photo" (click)="buttonAttributes.fileDialog ? uploadPrompt.click() : navigateToRoute()">
             <img *ngIf="buttonAttributes.icon != 'none'" src={{buttonAttributes.icon}} style="height: 20px;"/>
             <div *ngIf="buttonAttributes.text != 'none'" style="height: 20px;padding-top: 3px">{{buttonAttributes.text}}</div>
           </div>

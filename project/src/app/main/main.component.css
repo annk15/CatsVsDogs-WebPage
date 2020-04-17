@@ -40,10 +40,15 @@ h1 {
   border-radius: 4px;
   padding: 10px;
 
-  background-color: #3593EF;
-  color: #ffffff;
   font-size: 14px;
   text-align: center;
+
+  margin-bottom: 5px;
+}
+
+.button.photo {
+  background-color: #ef8552;
+  color: #ffffff;
 }
 
 .line {
