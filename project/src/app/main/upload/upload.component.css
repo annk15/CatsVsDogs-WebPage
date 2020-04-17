@@ -36,10 +36,9 @@
   position: absolute;
   margin-left: auto;
   margin-right: auto;
-  top: 50px;
+  top: 40px;
   left: 0px;
   right: 0px;
 
-  -webkit-animation: rotate-center 20s linear infinite both;
-  animation: rotate-center 20s linear infinite both;
+
 }
