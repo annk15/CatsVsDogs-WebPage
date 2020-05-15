@@ -3,14 +3,20 @@ import {BehaviorSubject, Observable, ReplaySubject, Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {BackendResponse} from "./backend-response";
 
+export enum PROGRESS {
+    Idle = 0,
+    Loading = 1
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class ProcessService {
 
-  private labelSubject : BehaviorSubject<BackendResponse> = new BehaviorSubject<BackendResponse>(null);
+    private progress : BehaviorSubject<PROGRESS> = new BehaviorSubject<PROGRESS>(PROGRESS.Idle);
+    private labelSubject : BehaviorSubject<BackendResponse> = new BehaviorSubject<BackendResponse>(null);
 
-  constructor(private httpClient: HttpClient) {}
+    constructor(private httpClient: HttpClient) {}
 
   predict(file) : void {
 
@@ -28,14 +34,23 @@ export class ProcessService {
 
         });
 
+        this.progress.next(PROGRESS.Loading);
+
       }
 
       myReader.readAsDataURL(file);
 
     }
 
-  getPrediction() : Observable<BackendResponse> { return this.labelSubject.asObservable(); }
+    getProgress() : Observable<PROGRESS> { return this.progress.asObservable(); }
 
-  reset() :void { this.labelSubject.next(null); }
+    getPrediction() : Observable<BackendResponse> { return this.labelSubject.asObservable(); }
+
+    reset() :void {
+
+        this.progress.next(PROGRESS.Idle);
+        this.labelSubject.next(null);
+
+    }
 
 }

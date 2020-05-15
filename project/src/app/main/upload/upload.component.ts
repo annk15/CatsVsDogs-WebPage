@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ButtonAttributes} from "../../shared/button-attributes";
+import {ProcessService, PROGRESS} from "../../shared/process.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-upload',
@@ -8,9 +10,21 @@ import {ButtonAttributes} from "../../shared/button-attributes";
 })
 export class UploadComponent implements OnInit {
 
-  constructor() { }
+  PROGRESS = PROGRESS;
+  progress : PROGRESS = PROGRESS.Idle;
 
-  ngOnInit(): void {}
+  private processSubscription : Subscription;
+
+
+  constructor(private processService : ProcessService) { }
+
+  ngOnInit(): void {
+
+      this.processSubscription = this.processService.getProgress().subscribe((progress) => {
+        this.progress = progress;
+      });
+
+  }
 
   getButtonAttributes() : ButtonAttributes { return new ButtonAttributes({icon:"assets/camera.svg", route:"/predict", fileDialog: true});}
 
